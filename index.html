@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="New dataset and more fine-grained method for the Composed Image Retrieval task in the fashion domain.">
+  <meta name="keywords" content="Composed Image Retrieval, Multimodal Fusion, Fashion Domain">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FACap: A Large-Scale Fashion Dataset for Fine-grained Composed Image Retrieval</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+  -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+  <!--
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="https://keunhong.com">
+          <span class="icon">
+            <i class="fas fa-home"></i>
+          </span>
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More Research
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://hypernerf.github.io">
+              HyperNeRF
+            </a>
+            <a class="navbar-item" href="https://nerfies.github.io">
+              Nerfies
+            </a>
+            <a class="navbar-item" href="https://latentfusion.github.io">
+              LatentFusion
+            </a>
+            <a class="navbar-item" href="https://photoshape.github.io">
+              PhotoShape
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+  -->
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">FACap: A Large-Scale Fashion Dataset for Fine-grained Composed
+              Image Retrieval
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="TBD">François Gardères</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://cshizhe.github.io">Shizhe Chen</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="TBD">Camille-Sovanneary Gauthier</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://www.di.ens.fr/~ponce/">Jean Ponce</a><sup>2</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>Louis Vuitton,</span>
+              <span class="author-block"><sup>2</sup>INRIA Paris</span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="TBD" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="TBD" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <!--
+                <span class="link-block">
+                  <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+                -->
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="TBD" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code & data</span>
+                  </a>
+                </span>
+                <!-- Dataset Link. -->
+                <!--
+                <span class="link-block">
+                  <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="far fa-images"></i>
+                    </span>
+                    <span>Data</span>
+                  </a>
+                -->
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video id="teaser" autoplay muted loop playsinline height="100%">
+          <source src="./static/videos/teaser.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-centered">
+          <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+          free-viewpoint
+          portraits.
+        </h2>
+      </div>
+    </div>
+  </section>
+  -->
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              The composed image retrieval (CIR) task is to retrieve target images given a reference image
+              and a modification text. Recent methods for CIR leverage large pretrained vision-language models
+              (VLMs) and achieve good performance on general-domain concepts like color and texture. However,
+              they still struggle with application domains like fashion, because the rich and diverse vocabulary
+              used in fashion requires specific fine-grained vision and language understanding.
+              An additional difficulty is the lack of large-scale fashion datasets with detailed and relevant
+              annotations, due to the expensive cost of manual annotation by specialists.
+            </p>
+
+            <p>
+              To address these challenges, we introduce <b>FACap</b>, a large-scale,
+              automatically constructed fashion-domain CIR dataset. It leverages web-sourced fashion images
+              and a two-stage annotation pipeline powered by a VLM and a large language model (LLM) to generate
+              accurate and detailed modification texts.
+            </p>
+
+            <p>
+              Then, we propose a new CIR model <b>FashionBLIP-2</b>, which fine-tunes the
+              general-domain BLIP-2 model on FACap with lightweight adapters and
+              multi-head query-candidate matching to better account for fine-grained fashion-specific information.
+            </p>
+
+            <p>
+              FashionBLIP-2 is evaluated with and without additional fine-tuning on
+              the Fashion IQ benchmark and the enhanced evaluation dataset enhFashionIQ,
+              leveraging our pipeline to obtain higher-quality annotations. Experimental results show that the
+              combination of FashionBLIP-2 and pretraining with
+              FACap significantly improves the model's performance in fashion CIR
+              especially for retrieval with fine-grained modification texts, demonstrating the value of our
+              dataset and approach in a highly demanding environment such as e-commerce websites.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+
+
+      <!-- Paper video. -->
+      <!--
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Video</h2>
+          <div class="publication-video">
+            <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0" frameborder="0"
+              allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+      -->
+      <!--/ Paper video. -->
+    </div>
+  </section>
+
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3">FACap - Dataset presentation</h2>
+        <div class="content">
+          <p>
+            Our dataset FACap consists of 227,680 <span class="dnerf">(reference image, modification text, target
+              image)</span> triplets
+            which
+            can be used to train a model on the CIR task in the fashion domain. The image pairs are built from
+            existing
+            fashion datasets, and the modification texts are generated with a custom pipeline using a large
+            vision-language model and a large language model.
+          </p>
+        </div>
+
+
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-example1">
+            <img src="./static/images/facap_example1.png" class="interpolation-image" alt="FACap - Dress example." />
+          </div>
+          <div class=" item item-example2">
+            <img src="./static/images/facap_example2.png" class="interpolation-image" alt="FACap - Skirt example." />
+          </div>
+          <div class="item item-example3">
+            <img src="./static/images/facap_example3.png" class="interpolation-image" alt="FACap - Shirt example." />
+          </div>
+          <div class="item item-example4">
+            <img src="./static/images/facap_example4.png" class="interpolation-image" alt="FACap - Dress example." />
+          </div>
+        </div>
+        <div class="content">
+          <p>
+            The resulting dataset is larger than the Fashion IQ dataset, with more detailed modification texts and
+            comparable faithfulness, as our comparative quality evaluation shows.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3">FashionBLIP-2 - Method</h2>
+      <div class="columns is-centered">
+        <!-- Global pipeline. -->
+        <div class="column is-custom-large">
+          <div class="content">
+            <h2 class="title is-3">Global pipeline</h2>
+            <p>
+              The input images are encoded using a pre-trained image encoder with adapter modules, and further
+              processed by a Q-Former module. The similarity between the two obtained representations is
+              computed using our specific matching module (see details on the right).
+            </p>
+            <img src="./static/images/global_pipeline.png" class="interpolation-image"
+              alt="FashionBLIP-2 global pipeline." />
+          </div>
+        </div>
+        <!--/ Global pipeline. -->
+
+        <!-- Matching module. -->
+        <div class="column is-custom-thin">
+          <h2 class="title is-3">Matching module</h2>
+          <div class="columns is-centered">
+            <div class="column content">
+              <p>
+                The number of tokens and token dimensionality is reduced by token mixing and channel mixing
+                (respectively). The final similarity score is the sum of the cosine similarity for each
+                paired vector.
+              </p>
+              <img src="./static/images/matching_module.png" class="interpolation-image"
+                alt="FashionBLIP-2 matching module." />
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--/ Matching module. -->
+
+      <section class="hero is-light is-small">
+        <div class="hero-body">
+          <div class="container">
+            <h2 class="title is-3">Qualitative results</h2>
+            <div class="content">
+              <p>
+                <i>Note: for each query, the ground-truth target image is framed in green.</i>
+              </p>
+            </div>
+
+            <h3 class="title is-5">On the Fashion IQ dataset</h3>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item item-fiq1">
+                <img src="./static/images/fiq_dress1.png" class="interpolation-image"
+                  alt="Qualitative example on Fashion IQ dress" />
+              </div>
+              <div class="item item-fiq2">
+                <img src="./static/images/fiq_dress2.png" class="interpolation-image"
+                  alt="Qualitative example on Fashion IQ dress" />
+              </div>
+              <div class="item item-fiq3">
+                <img src="./static/images/fiq_shirt1.png" class="interpolation-image"
+                  alt="Qualitative example on Fashion IQ shirt" />
+              </div>
+              <div class="item item-fiq4">
+                <img src="./static/images/fiq_shirt2.png" class="interpolation-image"
+                  alt="Qualitative example on Fashion IQ shirt" />
+              </div>
+              <div class="item item-fiq5">
+                <img src="./static/images/fiq_toptee1.png" class="interpolation-image"
+                  alt="Qualitative example on Fashion IQ toptee" />
+              </div>
+              <div class="item item-fiq6">
+                <img src="./static/images/fiq_toptee2.png" class="interpolation-image"
+                  alt="Qualitative example on Fashion IQ toptee" />
+              </div>
+            </div>
+            <div class="content"></div>
+
+            <h3 class="title is-5">On the enhFashionIQ dataset</h3>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item item-enhfiq1">
+                <img src="./static/images/enhfiq_dress1.png" class="interpolation-image"
+                  alt="Qualitative example on enhFashionIQ dress" />
+              </div>
+              <div class="item item-enhfiq2">
+                <img src="./static/images/enhfiq_dress2.png" class="interpolation-image"
+                  alt="Qualitative example on enhFashionIQ dress" />
+              </div>
+              <div class="item item-enhfiq3">
+                <img src="./static/images/enhfiq_shirt1.png" class="interpolation-image"
+                  alt="Qualitative example on enhFashionIQ shirt" />
+              </div>
+              <div class="item item-enhfiq4">
+                <img src="./static/images/enhfiq_shirt2.png" class="interpolation-image"
+                  alt="Qualitative example on enhFashionIQ shirt" />
+              </div>
+              <div class="item item-enhfiq5">
+                <img src="./static/images/enhfiq_toptee1.png" class="interpolation-image"
+                  alt="Qualitative example on enhFashionIQ toptee" />
+              </div>
+              <div class="item item-enhfiq6">
+                <img src="./static/images/enhfiq_toptee2.png" class="interpolation-image"
+                  alt="Qualitative example on enhFashionIQ toptee" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Concurrent Work. -->
+      <!--
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">Related Links</h2>
+
+          <div class="content has-text-justified">
+            <p>
+              There's a lot of excellent work that was introduced around the same time as ours.
+            </p>
+            <p>
+              <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an
+              idea similar to our windowed position encoding for coarse-to-fine optimization.
+            </p>
+            <p>
+              <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a
+                href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
+              both use deformation fields to model non-rigid scenes.
+            </p>
+            <p>
+              Some works model videos with a NeRF by directly modulating the density, such as <a
+                href="https://video-nerf.github.io/">Video-NeRF</a>, <a
+                href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a
+                href="https://neural-3d-video.github.io/">DyNeRF</a>
+            </p>
+            <p>
+              There are probably many more by the time you are reading this. Check out <a
+                href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a
+                href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+      -->
+      <!--/ Concurrent Work. -->
+
+    </div>
+  </section>
+
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@article{TBD,
+  author    = {Garderes, Francois and Chen, Shizhe and Gauthier, Camille-Sovanneary and Ponce, Jean},
+  title     = {FACap: A Large-Scale Fashion Dataset for Fine-grained Composed Image Retrieval},
+  journal   = {TBD},
+  year      = {2025},
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p align="center">
+              <a href="https://github.com/nerfies/nerfies.github.io">
+                <font size="2" color="gray">Source code of the webpage template</font>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
